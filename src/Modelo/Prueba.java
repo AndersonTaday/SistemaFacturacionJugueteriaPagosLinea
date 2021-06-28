@@ -10,14 +10,5 @@ package Modelo;
  * @author LENOVO LEGION
  */
 public class Prueba {
-   //prueba rama anderson
-    // 1
-    // 2
-    // 3
-    //4
-    //5
-    //6
-    //9
-    //23
-    //23
+
 }    
