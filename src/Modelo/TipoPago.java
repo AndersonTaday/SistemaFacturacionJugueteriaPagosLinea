@@ -7,8 +7,9 @@ package Modelo;
 
 /**
  *
- * @author LENOVO LEGION
+ * @author James Romero
  */
-public class Prueba {
-    //2
-}    
+public enum TipoPago {
+    Efectivo,
+    TarjetaCredito,
+}

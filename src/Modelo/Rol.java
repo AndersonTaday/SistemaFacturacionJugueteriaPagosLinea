@@ -7,10 +7,11 @@ package Modelo;
 
 /**
  *
- * @author LENOVO LEGION
+ * @author James Romero
  */
 public class Rol {
-     private int idRol;
+
+    private int idRol;
     private String tipo;
     private String descripcion;
 
@@ -43,4 +44,5 @@ public class Rol {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 }
