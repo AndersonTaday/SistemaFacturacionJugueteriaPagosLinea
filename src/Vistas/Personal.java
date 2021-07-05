@@ -9,7 +9,7 @@ import java.awt.Color;
 
 /**
  *
- * @author yamil
+ * @author yami
  */
 public class Personal extends javax.swing.JFrame {
 

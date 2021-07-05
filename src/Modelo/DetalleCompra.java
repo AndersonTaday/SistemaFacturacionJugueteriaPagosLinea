@@ -7,7 +7,7 @@ package Modelo;
 
 /**
  *
- * @author yamil
+ * @author yami
  */
 public class DetalleCompra {
 
