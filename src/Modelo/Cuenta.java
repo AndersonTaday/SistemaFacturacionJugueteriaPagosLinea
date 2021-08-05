@@ -5,16 +5,27 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author James Romero
  */
-public class Cuenta {
+@Entity
+public class Cuenta implements Serializable {
 
     private int idCuenta;
     private String usuario;
     private String clave;
     private boolean estadoCuenta;
+    private Persona persona;
+
+   
+    
 
     public Cuenta() {
     }
@@ -26,6 +37,7 @@ public class Cuenta {
         this.estadoCuenta = estadoCuenta;
     }
 
+    @Id
     public int getIdCuenta() {
         return idCuenta;
     }
@@ -34,6 +46,7 @@ public class Cuenta {
         this.idCuenta = idCuenta;
     }
 
+    @Column(length = 30)
     public String getUsuario() {
         return usuario;
     }
@@ -42,6 +55,7 @@ public class Cuenta {
         this.usuario = usuario;
     }
 
+    @Column(length = 30)
     public String getClave() {
         return clave;
     }
@@ -56,6 +70,15 @@ public class Cuenta {
 
     public void setEstadoCuenta(boolean estadoCuenta) {
         this.estadoCuenta = estadoCuenta;
+    }
+    
+    @OneToOne
+     public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
 }

@@ -5,30 +5,35 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author James Romero
  */
-public class Compra {
+@Entity
+public class Compra implements Serializable  {
 
     private int idCompra;
     private int numCompra;
     private String fechaEntrega;
     private String descripción;
-    private Proveedor proveedor;
-
-    public Compra(){
-        
-    }
+//    private Proveedor proveedor;
     
-    public Compra(int idCompra, int numCompra, String fechaEntrega, String descripción, Proveedor proveedor) {
-        this.idCompra = idCompra;
-        this.numCompra = numCompra;
-        this.fechaEntrega = fechaEntrega;
-        this.descripción = descripción;
-        this.proveedor = proveedor;
-    }
+    private List<Proveedor> listaProveedor = new ArrayList<Proveedor>();
+    private List<DetalleCompra> listaC = new ArrayList<DetalleCompra>();
 
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //PONER OBLIGATORIAMENTE
     public int getIdCompra() {
         return idCompra;
     }
@@ -61,12 +66,43 @@ public class Compra {
         this.descripción = descripción;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+//    public Proveedor getProveedor() {
+//        return proveedor;
+//    }
+//
+//    public void setProveedor(Proveedor proveedor) {
+//        this.proveedor = proveedor;
+//    }
+    
+      public Compra(){
+        
+    }
+    
+    public Compra(int idCompra, int numCompra, String fechaEntrega, String descripción, Proveedor proveedor) {
+        this.idCompra = idCompra;
+        this.numCompra = numCompra;
+        this.fechaEntrega = fechaEntrega;
+        this.descripción = descripción;
+//        this.proveedor = proveedor;
+    }
+   
+    @OneToMany(mappedBy = "compra_pro",cascade = CascadeType.ALL)
+    public List<Proveedor> getListaProveedor() {
+        return listaProveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setListaProveedor(List<Proveedor> listaProveedor) {
+        this.listaProveedor = listaProveedor;
     }
+    
+    @OneToMany(mappedBy = "compras",cascade = CascadeType.ALL)
+    public List<DetalleCompra> getListaC() {
+        return listaC;
+    }
+
+    public void setListaC(List<DetalleCompra> listaC) {
+        this.listaC = listaC;
+    }
+
 
 }

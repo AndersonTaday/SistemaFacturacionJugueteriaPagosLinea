@@ -5,15 +5,32 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author James Romero
  */
-public class Rol {
+@Entity
+public class Rol implements Serializable {
 
     private int idRol;
     private String tipo;
     private String descripcion;
+    private List<Persona> personas = new ArrayList<Persona>();
+
+    public void setPersonas(List<Persona> personas) {
+        this.personas = personas;
+    }
 
     public Rol(int idRol, String tipo, String descripcion) {
         this.idRol = idRol;
@@ -21,6 +38,8 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getIdRol() {
         return idRol;
     }
@@ -29,6 +48,7 @@ public class Rol {
         this.idRol = idRol;
     }
 
+    @Column(length = 30)
     public String getTipo() {
         return tipo;
     }
@@ -37,6 +57,7 @@ public class Rol {
         this.tipo = tipo;
     }
 
+    @Column(length = 30)
     public String getDescripcion() {
         return descripcion;
     }
@@ -45,4 +66,8 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    public List<Persona> getPersonas() {
+        return personas;
+    }
 }
