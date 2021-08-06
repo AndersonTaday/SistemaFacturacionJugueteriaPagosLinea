@@ -44,7 +44,7 @@ public class ReporteFactura extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reporte de factura");
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(253, 240, 240));
 
         jComboBox1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nm. Factura", "CI.", "Fecha" }));
