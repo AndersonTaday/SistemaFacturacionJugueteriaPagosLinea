@@ -21,16 +21,14 @@ public class Cuenta implements Serializable {
     private int idCuenta;
     private String usuario;
     private String clave;
-    private boolean estadoCuenta;
-    private Persona persona;
 
-   
-    
+    private String estadoCuenta;
+    private Persona persona;
 
     public Cuenta() {
     }
 
-    public Cuenta(int idCuenta, String usuario, String clave, boolean estadoCuenta) {
+    public Cuenta(int idCuenta, String usuario, String clave, String estadoCuenta) {
         this.idCuenta = idCuenta;
         this.usuario = usuario;
         this.clave = clave;
@@ -64,16 +62,16 @@ public class Cuenta implements Serializable {
         this.clave = clave;
     }
 
-    public boolean isEstadoCuenta() {
+    public String getEstadoCuenta() {
         return estadoCuenta;
     }
 
-    public void setEstadoCuenta(boolean estadoCuenta) {
+    public void setEstadoCuenta(String estadoCuenta) {
         this.estadoCuenta = estadoCuenta;
     }
-    
+
     @OneToOne
-     public Persona getPersona() {
+    public Persona getPersona() {
         return persona;
     }
 

@@ -28,21 +28,52 @@ public class Controlador_Persona {
         st = HibernateUtil.getSessionFactory().openSession();
     }
 
-    public void Cliente(Persona cli) {
+    public void Cliente(Persona p) {
         try {
             st.beginTransaction();
-            st.save(cli);
+            st.save(p);
             st.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("Error al guardar cliente");
+            JOptionPane.showMessageDialog(null, "Error al traer los datos" + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public List<Persona> cargarCliente(List<Persona> listaPersona, String cedula) {
+    public void ActualizarCliente(Persona p) {
         try {
-            listaPersona = (List<Persona>) st.createQuery("From Persona where cedula = '" + cedula + "'order by apellido").list();
+            st.clear();
+            st.beginTransaction();
+            st.saveOrUpdate(p);
+            st.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("Error al cargar cliente");
+            JOptionPane.showMessageDialog(null, "Error al acualizao los datos" + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void desactivaCliente(Persona p) {
+        try {
+            st.beginTransaction();
+            st.update(p);
+            st.getTransaction().commit();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al desactivar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public List<Persona> buscarPersona(String cedula, List<Persona> lis) {
+        try {
+            lis = (List<Persona>) st.createQuery("From Persona where CI LIKE '%" + cedula + "%'").list();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+        return lis;
+    }
+
+    public List<Persona> cargarClientes(String estado, List<Persona> listaPersona) {
+        try {
+            listaPersona = (List<Persona>) st.createQuery("From Persona where estado='" + estado + "'order by apellido").list();
+        } catch (Exception e) {
+
         }
         return listaPersona;
     }
@@ -60,7 +91,7 @@ public class Controlador_Persona {
     public Persona TraerClientes(String cedula) {
         Persona per = null;
         try {
-            Query query = st.createQuery("From Persona person where person.cedula = ?");
+            Query query = st.createQuery("From Persona persona where persona.cedula = ?");
             query.setParameter(0, cedula);
             try {
                 per = (Persona) query.uniqueResult();
@@ -72,16 +103,15 @@ public class Controlador_Persona {
         }
         return per;
     }
-    
-     public void nuevaPersona(Persona per){
+
+    public Persona TraeClienteId(int id) {
+        Persona per = null;
         try {
-            st.beginTransaction();
-            st.save(per);
-            st.getTransaction().commit();
-            
+            per = (Persona) st.load(Persona.class, id);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al Guardar Cliente "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al cargar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         }
+        return per;
     }
 
 }

@@ -8,6 +8,7 @@ package Controlador;
 import utilidades.HibernateUtil;
 import Modelo.Rol;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -46,30 +47,30 @@ public class Controlador_Rol {
         return listaRol;
     }
 
-    /* public Rol TraerRol(String iDrol) {
-       // Rol ro = new Rol();
+     public Rol traeRol(String id) {
+        Rol ro = new Rol();
         try {
-           // ro = (Rol) st.load(Rol.class, iDrol);
+            ro = (Rol) st.load(Rol.class, id);
         } catch (Exception e) {
             System.out.println("Error al traer rol");
         }
-       // return ro;
-    } */
+        return ro;
+    } 
 
-    public Rol TraerRoles(String descrip) {
-        Rol rl = null;
+    public Rol TraerRoles(String des) {
+        Rol r = null;
         try {
-            Query query = st.createQuery("From Rol tp where tp.descripcion = ?");
-            query.setParameter(0, descrip);
+            Query query = st.createQuery("from Rol tp Where tp.descripcion = ?");
+            query.setParameter(0, des);
             try {
-                rl = (Rol) query.uniqueResult();
+                r = (Rol)query.uniqueResult();
             } catch (Exception e) {
-                System.out.println("Error el rol ya existe");
+                JOptionPane.showMessageDialog(null, "ERROR1"+e.getMessage(),"mensaje",JOptionPane.ERROR_MESSAGE);  
             }
         } catch (Exception e) {
-            System.out.println("Error al no traer roles");
+           JOptionPane.showMessageDialog(null, "error22"+e.getMessage(),"mensaje",JOptionPane.ERROR_MESSAGE);  
         }
-        return rl;
+        return r;
     }
 
     public void actualkzarRol(Rol rl) {

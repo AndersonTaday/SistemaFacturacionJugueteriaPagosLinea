@@ -20,18 +20,16 @@ import javax.persistence.OneToMany;
  * @author James Romero
  */
 @Entity
-public class Compra implements Serializable  {
+public class Compra implements Serializable {
 
     private int idCompra;
     private int numCompra;
     private String fechaEntrega;
     private String descripción;
-//    private Proveedor proveedor;
-    
+
     private List<Proveedor> listaProveedor = new ArrayList<Proveedor>();
     private List<DetalleCompra> listaC = new ArrayList<DetalleCompra>();
 
-   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PONER OBLIGATORIAMENTE
     public int getIdCompra() {
@@ -66,27 +64,18 @@ public class Compra implements Serializable  {
         this.descripción = descripción;
     }
 
-//    public Proveedor getProveedor() {
-//        return proveedor;
-//    }
-//
-//    public void setProveedor(Proveedor proveedor) {
-//        this.proveedor = proveedor;
-//    }
-    
-      public Compra(){
-        
+    public Compra() {
+
     }
-    
+
     public Compra(int idCompra, int numCompra, String fechaEntrega, String descripción, Proveedor proveedor) {
         this.idCompra = idCompra;
         this.numCompra = numCompra;
         this.fechaEntrega = fechaEntrega;
         this.descripción = descripción;
-//        this.proveedor = proveedor;
     }
-   
-    @OneToMany(mappedBy = "compra_pro",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "compra_pro", cascade = CascadeType.ALL)
     public List<Proveedor> getListaProveedor() {
         return listaProveedor;
     }
@@ -94,8 +83,8 @@ public class Compra implements Serializable  {
     public void setListaProveedor(List<Proveedor> listaProveedor) {
         this.listaProveedor = listaProveedor;
     }
-    
-    @OneToMany(mappedBy = "compras",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "compras", cascade = CascadeType.ALL)
     public List<DetalleCompra> getListaC() {
         return listaC;
     }
@@ -103,6 +92,5 @@ public class Compra implements Serializable  {
     public void setListaC(List<DetalleCompra> listaC) {
         this.listaC = listaC;
     }
-
 
 }

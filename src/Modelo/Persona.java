@@ -32,10 +32,11 @@ public class Persona implements Serializable {
     private String telefono;
     private String direccion;
     private String correoElectronico;
-    private Boolean estado;
+
+    private String estado;
     private Rol rol;
-    private List<Factura>ListaFac = new ArrayList<Factura>();
- 
+    private List<Factura> ListaFac = new ArrayList<Factura>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdPersona() {
@@ -90,8 +91,7 @@ public class Persona implements Serializable {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
-    
-    
+
     public String getApellido() {
         return apellido;
     }
@@ -100,20 +100,11 @@ public class Persona implements Serializable {
         this.apellido = apellido;
     }
 
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-    
-    //
-        public Persona() {
+    public Persona() {
 
     }
 
-    public Persona(int idPersona, String nombre, String CI, String telefono, String direccion, String correoElectronico, Boolean estado) {
+    public Persona(int idPersona, String nombre, String CI, String telefono, String direccion, String correoElectronico, String estado) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.CI = CI;
@@ -122,18 +113,25 @@ public class Persona implements Serializable {
         this.correoElectronico = correoElectronico;
         this.estado = estado;
     }
-    
-    @OneToMany(mappedBy = "fac",cascade = CascadeType.ALL)
-     public List<Factura> getListaFac() {
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    @OneToMany(mappedBy = "fac", cascade = CascadeType.ALL)
+    public List<Factura> getListaFac() {
         return ListaFac;
     }
 
     public void setListaFac(List<Factura> ListaFac) {
         this.ListaFac = ListaFac;
     }
-    
+
     //@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
-    
     @ManyToOne
     public Rol getRol() {
         return rol;
@@ -142,6 +140,5 @@ public class Persona implements Serializable {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
 
 }

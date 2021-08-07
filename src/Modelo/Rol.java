@@ -32,15 +32,15 @@ public class Rol implements Serializable {
         this.personas = personas;
     }
 
-    public Rol(int idRol, String tipo, String descripcion) {
-        this.idRol = idRol;
-        this.tipo = tipo;
-        this.descripcion = descripcion;
-    }
+//    public Rol(int idRol, String tipo, String descripcion) {
+//        this.idRol = idRol;
+//        this.tipo = tipo;
+//        this.descripcion = descripcion;
+//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getIdRol() {
+    public int getIdRol() {
         return idRol;
     }
 

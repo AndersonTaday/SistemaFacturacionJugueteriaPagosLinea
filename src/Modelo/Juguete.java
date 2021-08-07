@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author INFORMASHION 
+ * @author INFORMASHION
  */
 @Entity
 public class Juguete implements Serializable {
@@ -30,13 +30,13 @@ public class Juguete implements Serializable {
     private String descripcion;
     private int stock;
     private Double precio;
-    private Boolean estado;
+
+    private String estado;
     private String observacion;
     private String codigo;
 
     private List<DetalleFactura> listaDetalleJug = new ArrayList<DetalleFactura>();
     private List<DetalleCompra> listaJugCompra = new ArrayList<DetalleCompra>();
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,11 +100,11 @@ public class Juguete implements Serializable {
         this.precio = precio;
     }
 
-    public Boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -124,12 +124,13 @@ public class Juguete implements Serializable {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-    
+
     //
-     public Juguete() {
+    public Juguete() {
 
     }
-    public Juguete(int idJuguete, String nombre, String marca, String modelo, String descripcion, int stock, Double precio, Boolean estado, String observacion, String codigo) {
+
+    public Juguete(int idJuguete, String nombre, String marca, String modelo, String descripcion, int stock, Double precio, String estado, String observacion, String codigo) {
         this.idJuguete = idJuguete;
         this.nombre = nombre;
         this.marca = marca;
@@ -141,17 +142,17 @@ public class Juguete implements Serializable {
         this.observacion = observacion;
         this.codigo = codigo;
     }
-    
-    @OneToMany(mappedBy = "detalle_jug",cascade = CascadeType.ALL)
-     public List<DetalleFactura> getListaDetalleJug() {
+
+    @OneToMany(mappedBy = "detalle_jug", cascade = CascadeType.ALL)
+    public List<DetalleFactura> getListaDetalleJug() {
         return listaDetalleJug;
     }
 
     public void setListaDetalleJug(List<DetalleFactura> listaDetalleJug) {
         this.listaDetalleJug = listaDetalleJug;
     }
-    
-    @OneToMany(mappedBy = "detacjug",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "detacjug", cascade = CascadeType.ALL)
     public List<DetalleCompra> getListaJugCompra() {
         return listaJugCompra;
     }
@@ -160,5 +161,4 @@ public class Juguete implements Serializable {
         this.listaJugCompra = listaJugCompra;
     }
 
-   
 }

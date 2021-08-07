@@ -25,12 +25,12 @@ public class Proveedor implements Serializable {
     private int idProveedor;
     private String nombre;
     private String telefono;
-    private Boolean estado;
+
+    private String estado;
     private String direccion;
     private String descripción;
-    
+
     private Compra compra_pro;
- 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,11 +60,11 @@ public class Proveedor implements Serializable {
         this.telefono = telefono;
     }
 
-    public Boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -86,11 +86,11 @@ public class Proveedor implements Serializable {
         this.descripción = descripción;
     }
 
-     public Proveedor() {
+    public Proveedor() {
 
     }
-    
-    public Proveedor(int idProveedor, String nombre, String telefono, Boolean estado, String direccion, String descripción) {
+
+    public Proveedor(int idProveedor, String nombre, String telefono, String estado, String direccion, String descripción) {
         this.idProveedor = idProveedor;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -98,7 +98,7 @@ public class Proveedor implements Serializable {
         this.direccion = direccion;
         this.descripción = descripción;
     }
-    
+
     @ManyToOne
     public Compra getCompra_pro() {
         return compra_pro;
