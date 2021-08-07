@@ -5,32 +5,35 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /**
  *
- * @author James Romero
+ * @author James Romero JAJA
  */
-public class Proveedor {
+@Entity
+public class Proveedor implements Serializable {
 
     private int idProveedor;
     private String nombre;
     private String telefono;
-    private Boolean estado;
+
+    private String estado;
     private String direccion;
     private String descripción;
 
-    public Proveedor() {
+    private Compra compra_pro;
 
-    }
-
-    public Proveedor(int idProveedor, String nombre, String telefono, Boolean estado, String direccion, String descripción) {
-        this.idProveedor = idProveedor;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.estado = estado;
-        this.direccion = direccion;
-        this.descripción = descripción;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdProveedor() {
         return idProveedor;
     }
@@ -39,6 +42,7 @@ public class Proveedor {
         this.idProveedor = idProveedor;
     }
 
+    @Column(length = 30)
     public String getNombre() {
         return nombre;
     }
@@ -47,6 +51,7 @@ public class Proveedor {
         this.nombre = nombre;
     }
 
+    @Column(length = 10)
     public String getTelefono() {
         return telefono;
     }
@@ -55,14 +60,15 @@ public class Proveedor {
         this.telefono = telefono;
     }
 
-    public Boolean getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
+    @Column(length = 50)
     public String getDireccion() {
         return direccion;
     }
@@ -71,12 +77,35 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
+    @Column(length = 40)
     public String getDescripción() {
         return descripción;
     }
 
     public void setDescripción(String descripción) {
         this.descripción = descripción;
+    }
+
+    public Proveedor() {
+
+    }
+
+    public Proveedor(int idProveedor, String nombre, String telefono, String estado, String direccion, String descripción) {
+        this.idProveedor = idProveedor;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.estado = estado;
+        this.direccion = direccion;
+        this.descripción = descripción;
+    }
+
+    @ManyToOne
+    public Compra getCompra_pro() {
+        return compra_pro;
+    }
+
+    public void setCompra_pro(Compra compra_pro) {
+        this.compra_pro = compra_pro;
     }
 
 }

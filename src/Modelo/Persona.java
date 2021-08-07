@@ -5,34 +5,40 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author James Romero
  */
-public class Persona {
+@Entity
+public class Persona implements Serializable {
 
     private int idPersona;
     private String nombre;
     private String CI;
+    private String apellido;
+
     private String telefono;
     private String direccion;
     private String correoElectronico;
-    private Boolean estado;
 
-    public Persona() {
+    private String estado;
+    private Rol rol;
+    private List<Factura> ListaFac = new ArrayList<Factura>();
 
-    }
-
-    public Persona(int idPersona, String nombre, String CI, String telefono, String direccion, String correoElectronico, Boolean estado) {
-        this.idPersona = idPersona;
-        this.nombre = nombre;
-        this.CI = CI;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.correoElectronico = correoElectronico;
-        this.estado = estado;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdPersona() {
         return idPersona;
     }
@@ -41,6 +47,7 @@ public class Persona {
         this.idPersona = idPersona;
     }
 
+    @Column(length = 30)
     public String getNombre() {
         return nombre;
     }
@@ -49,6 +56,7 @@ public class Persona {
         this.nombre = nombre;
     }
 
+    @Column(length = 10)
     public String getCI() {
         return CI;
     }
@@ -57,6 +65,7 @@ public class Persona {
         this.CI = CI;
     }
 
+    @Column(length = 10)
     public String getTelefono() {
         return telefono;
     }
@@ -65,6 +74,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    @Column(length = 40)
     public String getDireccion() {
         return direccion;
     }
@@ -73,6 +83,7 @@ public class Persona {
         this.direccion = direccion;
     }
 
+    @Column(length = 40)
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -81,12 +92,53 @@ public class Persona {
         this.correoElectronico = correoElectronico;
     }
 
-    public Boolean getEstado() {
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Persona() {
+
+    }
+
+    public Persona(int idPersona, String nombre, String CI, String telefono, String direccion, String correoElectronico, String estado) {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.CI = CI;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.correoElectronico = correoElectronico;
+        this.estado = estado;
+    }
+
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @OneToMany(mappedBy = "fac", cascade = CascadeType.ALL)
+    public List<Factura> getListaFac() {
+        return ListaFac;
+    }
+
+    public void setListaFac(List<Factura> ListaFac) {
+        this.ListaFac = ListaFac;
+    }
+
+    //@OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    @ManyToOne
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
 }

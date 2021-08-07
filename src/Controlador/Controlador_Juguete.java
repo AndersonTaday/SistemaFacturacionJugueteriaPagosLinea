@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Controlador;
 
 /**
  *
  * @author James Romero
  */
-public enum TipoPago {
-    Efectivo,
-    TarjetaCredito,
+public class Controlador_Juguete {
+    
 }

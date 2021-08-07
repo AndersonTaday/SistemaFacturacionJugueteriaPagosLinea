@@ -5,11 +5,20 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author James Romero
  */
-public class DetalleFactura {
+@Entity
+public class DetalleFactura implements Serializable {
 
     private int idDetFact;
     private Juguete juguete;
@@ -17,18 +26,11 @@ public class DetalleFactura {
     private Double precioTotal;
     private int cantidad;
 
-    public DetalleFactura() {
+    private Factura detalle_fac;
+    private Juguete detalle_jug;
 
-    }
-
-    public DetalleFactura(int idDetFact, Juguete juguete, Double precioUnitario, Double precioTotal, int cantidad) {
-        this.idDetFact = idDetFact;
-        this.juguete = juguete;
-        this.precioUnitario = precioUnitario;
-        this.precioTotal = precioTotal;
-        this.cantidad = cantidad;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdDetFact() {
         return idDetFact;
     }
@@ -37,6 +39,7 @@ public class DetalleFactura {
         this.idDetFact = idDetFact;
     }
 
+    @Column(length = 30)
     public Juguete getJuguete() {
         return juguete;
     }
@@ -67,6 +70,36 @@ public class DetalleFactura {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public DetalleFactura() {
+
+    }
+
+    public DetalleFactura(int idDetFact, Juguete juguete, Double precioUnitario, Double precioTotal, int cantidad) {
+        this.idDetFact = idDetFact;
+        this.juguete = juguete;
+        this.precioUnitario = precioUnitario;
+        this.precioTotal = precioTotal;
+        this.cantidad = cantidad;
+    }
+
+    @ManyToOne
+    public Factura getDetalle_fac() {
+        return detalle_fac;
+    }
+
+    public void setDetalle_fac(Factura detalle_fac) {
+        this.detalle_fac = detalle_fac;
+    }
+
+    @ManyToOne
+    public Juguete getDetalle_jug() {
+        return detalle_jug;
+    }
+
+    public void setDetalle_jug(Juguete detalle_jug) {
+        this.detalle_jug = detalle_jug;
     }
 
 }
