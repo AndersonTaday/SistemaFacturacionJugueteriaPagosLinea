@@ -71,7 +71,7 @@ public class Controlador_Proveedor {
         return pro;
     }
 
-    public List<Vistas.Proveedor> cargarProveedor(List<Vistas.Proveedor> listaProveedor, String nombre) {
+    public List<Vistas.FrmProveedor> cargarProveedor(List<Vistas.FrmProveedor> listaProveedor, String nombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

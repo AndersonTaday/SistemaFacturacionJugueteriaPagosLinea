@@ -26,7 +26,10 @@ public class Rol implements Serializable {
     private int idRol;
     private String tipo;
     private String descripcion;
+    private String rol;
     private List<Persona> personas = new ArrayList<Persona>();
+    private Persona persona;
+    
 
     public void setPersonas(List<Persona> personas) {
         this.personas = personas;
@@ -69,5 +72,23 @@ public class Rol implements Serializable {
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
     public List<Persona> getPersonas() {
         return personas;
+    }
+    
+    public Rol() {
+    }
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }

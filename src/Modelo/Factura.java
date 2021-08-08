@@ -16,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author LENOVO LEGION
  */
 @Entity
+@Table(name = "factura")
 public class Factura implements Serializable  {
 
     private int idFactura;
@@ -38,6 +40,15 @@ public class Factura implements Serializable  {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Persona persona;
+    
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
     public int getIdFactura() {
         return idFactura;
     }

@@ -14,12 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author James Romero JAJA
  */
 @Entity
+@Table(name = "proveedor")
+
 public class Proveedor implements Serializable {
 
     private int idProveedor;

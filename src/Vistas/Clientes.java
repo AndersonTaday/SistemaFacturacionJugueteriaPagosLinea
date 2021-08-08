@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author yamilka
  */
+
 public class Clientes extends javax.swing.JFrame {
 
     /**
@@ -30,16 +31,15 @@ public class Clientes extends javax.swing.JFrame {
     private void ModificarTabla() {
         JTCliente.getColumnModel().getColumn(0).setMaxWidth(0);
         JTCliente.getColumnModel().getColumn(0).setMinWidth(0);
-        JTCliente.getColumnModel().getColumn(0).setPreferredWidth(0); //OCULTA EL ID EN LA YABLA
+        JTCliente.getColumnModel().getColumn(0).setPreferredWidth(0);
 
-//        JTCliente.getColumnModel().getColumn(0).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(1).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(2).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(3).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(4).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(5).setPreferredWidth(220);
         JTCliente.getColumnModel().getColumn(6).setPreferredWidth(220);
-//        JTCliente.getColumnModel().getColumn(7).setPreferredWidth(220);
+        JTCliente.getColumnModel().getColumn(7).setPreferredWidth(220);
 
         TablaCliente = (DefaultTableModel) JTCliente.getModel();
         TablaCliente.setNumRows(0);
@@ -83,6 +83,25 @@ public class Clientes extends javax.swing.JFrame {
         txtCorreElectronico.setText("");
     }
 
+    private void buscaCliente(String ced) {
+        TablaCliente.setNumRows(0);
+        List<Persona> lis = null;
+        lis = personadb.buscarPersona(ced, lis);
+
+        if (lis.size() > 0) {
+            for (Persona perLis : lis) {
+                TablaCliente.addRow(new Object[]{
+                    perLis.getIdPersona(), perLis.getCI(), perLis.getNombre(), perLis.getApellido(), perLis.getTelefono(), perLis.getCorreoElectronico(), perLis.getDireccion(), perLis.getEstado()
+
+                });
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscarCedula.requestFocus();
+            inicio();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,7 +118,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        textField6 = new java.awt.TextField();
+        txtBuscarCedula = new java.awt.TextField();
         jPanel2 = new javax.swing.JPanel();
         txtNombre = new java.awt.TextField();
         txtApellido = new java.awt.TextField();
@@ -116,8 +135,8 @@ public class Clientes extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtCorreElectronico = new java.awt.TextField();
         jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTCliente = new javax.swing.JTable();
@@ -130,10 +149,10 @@ public class Clientes extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel6.setText("Cedula:");
 
-        textField6.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        textField6.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscarCedula.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        txtBuscarCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textField6ActionPerformed(evt);
+                txtBuscarCedulaActionPerformed(evt);
             }
         });
 
@@ -298,21 +317,21 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/modificar.png"))); // NOI18N
-        jButton4.setText("Modificar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/buscar.png"))); // NOI18N
-        jButton5.setText("Buscar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/buscar.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -330,7 +349,7 @@ public class Clientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Descripción", "Estado"
+                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -362,7 +381,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -372,9 +391,9 @@ public class Clientes extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(19, 19, 19)
-                                .addComponent(textField6, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtBuscarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -385,15 +404,15 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btnModificar)
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBuscarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5)))
+                        .addComponent(btnBuscar)))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -437,21 +456,40 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaActionPerformed
 
-    private void textField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField6ActionPerformed
+    private void txtBuscarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textField6ActionPerformed
+    }//GEN-LAST:event_txtBuscarCedulaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+//        Persona p = new Persona();
+//        p = personadb.TraerClientes(txtCedula.getText());
+//        p.setCI(txtCedula.getText().trim());
+//        p.setNombre(txtNombre.getText().trim());
+//        p.setApellido(txtApellido.getText().trim());
+//        p.setCorreoElectronico(txtCorreElectronico.getText().trim());
+//        p.setDireccion(txtDireccion.getText().trim());
+//        p.setTelefono(txtTelefono.getText().trim());
+//        p.setEstado("A");
+//        personadb.ActualizarCliente(p);
+//        JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+//        inicio();
+//        limpiar();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        if (txtBuscarCedula.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscarCedula.requestFocus();
+        } else {
+            buscaCliente(txtBuscarCedula.getText());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Persona per = null;
@@ -547,10 +585,10 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JTable JTCliente;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAñadir;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -561,8 +599,8 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private java.awt.TextField textField6;
     private java.awt.TextField txtApellido;
+    private java.awt.TextField txtBuscarCedula;
     private java.awt.TextField txtCedula;
     private java.awt.TextField txtCorreElectronico;
     private java.awt.TextField txtDireccion;
