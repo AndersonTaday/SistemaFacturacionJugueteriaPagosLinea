@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -31,6 +34,8 @@ public class Proveedor implements Serializable {
     private String descripción;
 
     private Compra compra_pro;
+    
+    private List<Proveedor> proveedores = new ArrayList<Proveedor>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,5 +112,13 @@ public class Proveedor implements Serializable {
     public void setCompra_pro(Compra compra_pro) {
         this.compra_pro = compra_pro;
     }
+    
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
 
+    public void setNombre(Proveedor r) {
+        this.nombre = nombre;    
+    }
 }
