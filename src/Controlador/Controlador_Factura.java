@@ -5,10 +5,22 @@
  */
 package Controlador;
 
+import org.hibernate.Session;
+import utilidades.HibernateUtil;
+
 /**
  *
  * @author James Romero
  */
 public class Controlador_Factura {
-    
+
+    private Session st;
+
+    public Controlador_Factura() {
+        sessionHibernate();
+    }
+
+    public void sessionHibernate() {
+        st = HibernateUtil.getSessionFactory().openSession();
+    }
 }

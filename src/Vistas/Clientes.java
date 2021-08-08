@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Vistas;
 
 import Controlador.Controlador_Persona;
@@ -10,9 +15,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author yamilka
+ * @author James Romero
  */
-
 public class Clientes extends javax.swing.JFrame {
 
     /**
@@ -52,14 +56,16 @@ public class Clientes extends javax.swing.JFrame {
         for (Persona persona : lista) {
             TablaCliente.addRow(new Object[]{
                 persona.getIdPersona(), persona.getCI(), persona.getNombre(), persona.getApellido(), persona.getTelefono(), persona.getCorreoElectronico(), persona.getDireccion(), persona.getEstado()
-
+                    
             });
         }
+        
     }
 
     private void inicio() {
         ModificarTabla();
         cargarTabla("A");
+        
         //CAMBIARLA VARIABLE ESTADO A STRING
         //        cargarTabla("");
     }
@@ -377,9 +383,6 @@ public class Clientes extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80)
@@ -393,7 +396,10 @@ public class Clientes extends javax.swing.JFrame {
                                 .addGap(19, 19, 19)
                                 .addComponent(txtBuscarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -415,9 +421,9 @@ public class Clientes extends javax.swing.JFrame {
                         .addComponent(btnBuscar)))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(52, 52, 52)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -466,19 +472,37 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-//        Persona p = new Persona();
-//        p = personadb.TraerClientes(txtCedula.getText());
-//        p.setCI(txtCedula.getText().trim());
-//        p.setNombre(txtNombre.getText().trim());
-//        p.setApellido(txtApellido.getText().trim());
-//        p.setCorreoElectronico(txtCorreElectronico.getText().trim());
-//        p.setDireccion(txtDireccion.getText().trim());
-//        p.setTelefono(txtTelefono.getText().trim());
-//        p.setEstado("A");
-//        personadb.ActualizarCliente(p);
-//        JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-//        inicio();
-//        limpiar();
+        Persona per = null;
+        if (btnModificar.getText().equals("Modificar")) {
+            per = personadb.TraerClientes(txtCedula.getText());
+            if (per == null) {
+                per = new Persona();
+//                Rol r = new Rol();
+//
+//                r = RolDB.TraerRoles("Cliente");
+//                per.setRol(r);
+
+                per.setCI(txtCedula.getText().trim());
+                per.setNombre(txtNombre.getText().trim());
+                per.setApellido(txtApellido.getText().trim());
+                per.setCorreoElectronico(txtCorreElectronico.getText().trim());
+                per.setDireccion(txtDireccion.getText().trim());
+                per.setTelefono(txtTelefono.getText().trim());
+                per.setEstado("A");
+
+//                r.getPersonas().add(per);
+                personadb.ActualizarCliente(per);
+                inicio();
+                limpiar();
+                JOptionPane.showMessageDialog(null, "Se actualizaaron los datos correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -498,7 +522,7 @@ public class Clientes extends javax.swing.JFrame {
             if (per == null) {
                 per = new Persona();
                 Rol r = new Rol();
-//
+
                 r = RolDB.TraerRoles("Cliente");
                 per.setRol(r);
 

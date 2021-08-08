@@ -16,14 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author James Romero
  */
 @Entity
-@Table(name = "persona")
 public class Persona implements Serializable {
 
     private int idPersona;
@@ -38,8 +36,6 @@ public class Persona implements Serializable {
     private String estado;
     private Rol rol;
     private List<Factura> ListaFac = new ArrayList<Factura>();
-    
-    private Cuenta cuenta;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -145,11 +141,4 @@ public class Persona implements Serializable {
         this.rol = rol;
     }
 
-     public Cuenta getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
-    }
 }

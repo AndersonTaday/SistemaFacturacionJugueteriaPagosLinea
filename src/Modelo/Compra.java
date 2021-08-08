@@ -31,7 +31,7 @@ public class Compra implements Serializable {
     private List<DetalleCompra> listaC = new ArrayList<DetalleCompra>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //PONER OBLIGATORIAMENTE
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdCompra() {
         return idCompra;
     }

@@ -35,15 +35,27 @@ public class Controlador_Proveedor {
             System.out.println("Error al guardar proveedor");
         }
     }
+    
+      public void ActualizarProveedor(Proveedor nombre) {
+        try {
+            st.clear();
+            st.beginTransaction();
+            st.saveOrUpdate(nombre);
+            st.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error al guardar proveedor");
+        }
+    }
 
-//    public List<Proveedor> cargarProveedor(List<Proveedor> listaProveedor, String nom){
-//        try {
-//            listaProveedor = (List<Proveedor>) st.createQuery("From Proveedor where nombre  = '" + nom + "'order by nombre").list();
-//        } catch (Exception e) {
-//            System.out.println("Error al cargar cliente");
-//        }
-//        return listaProveedor;
-//    }
+
+    public List<Proveedor> cargarProveedor(String nombre, List<Proveedor> listaProveedor){
+        try {
+            listaProveedor = (List<Proveedor>) st.createQuery("From Proveedor where nombre= '" + nombre + "'order by nombre").list();
+        } catch (Exception e) {
+            System.out.println("Error al cargar cliente");
+        }
+        return listaProveedor;
+    }
 
     public Proveedor TraerProveedor(String nombre) {
         Proveedor pro = null;
@@ -70,8 +82,10 @@ public class Controlador_Proveedor {
         }
         return pro;
     }
+    
+    
 
-    public List<Vistas.FrmProveedor> cargarProveedor(List<Vistas.FrmProveedor> listaProveedor, String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    public List<Vistas.Proveedor> cargarProveedor(List<Vistas.Proveedor> listaProveedor, String nombre) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

@@ -2,9 +2,7 @@ package Controlador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.*;
-
+import java.sql.Statement;
 
 /**
  *
@@ -12,25 +10,27 @@ import java.sql.*;
  */
 
 public class Conexion {
+
     Connection cn;
     Statement st;
     private static String us = "root";
     private static String contra = "";
     private static String bd = "proyecto";
     private static String url = "jdbc:mysql://localhost:3306/" + bd;
-    
-    public Connection conexion(){
-        try{
+
+    public Connection conexion() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             cn = DriverManager.getConnection(url, us, contra);
             System.out.println("CONEXION SEGURA");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return cn;
     }
-    
-    Statement createStatement(){
+
+    Statement createStatement() {
         throw new UnsupportedOperationException("No Soportado");
-    }   
+    }
+
 }
