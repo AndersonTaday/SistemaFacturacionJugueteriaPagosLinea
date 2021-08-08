@@ -34,39 +34,8 @@ public class Controlador_Persona {
             st.save(p);
             st.getTransaction().commit();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al traer los datos" + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso" + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public void ActualizarCliente(Persona p) {
-        try {
-            st.clear();
-            st.beginTransaction();
-            st.saveOrUpdate(p);
-            st.getTransaction().commit();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al acualizao los datos" + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void desactivaCliente(Persona p) {
-        try {
-            st.beginTransaction();
-            st.update(p);
-            st.getTransaction().commit();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al desactivar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public List<Persona> buscarPersona(String cedula, List<Persona> lis) {
-        try {
-            lis = (List<Persona>) st.createQuery("From Persona where CI LIKE '%" + cedula + "%'").list();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
-        }
-        return lis;
     }
 
     public List<Persona> cargarClientes(String estado, List<Persona> listaPersona) {
@@ -109,7 +78,7 @@ public class Controlador_Persona {
         try {
             per = (Persona) st.load(Persona.class, id);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR AL CARGAR EL CLIENTE " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
         }
         return per;
     }

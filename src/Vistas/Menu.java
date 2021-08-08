@@ -39,7 +39,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void FrmProveedor() {
-        FrmProveedor frm = new FrmProveedor();
+        Proveedor frm = new Proveedor();
         frm.setVisible(true);
     }
 

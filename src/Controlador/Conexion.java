@@ -15,10 +15,6 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    /**
-     *
-     * @author Usuario
-     */
     private static String us = "root";
     private static String contra = "";
     private static String bd = "proyecto";

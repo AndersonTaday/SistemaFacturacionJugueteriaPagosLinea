@@ -7,7 +7,6 @@ package Controlador;
 
 import Modelo.Proveedor;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utilidades.HibernateUtil;
@@ -37,26 +36,16 @@ public class Controlador_Proveedor {
         }
     }
 
-    public List<Proveedor> cargarProveedor(String nom, List<Proveedor> listaProveedor){
-        try {
-            listaProveedor = (List<Proveedor>) st.createQuery("From Proveedor where nombre  = '" + nom + "'order by nombre").list();
-        } catch (Exception e) {
-            System.out.println("Error al cargar proveedor");
-        }
-        return listaProveedor;
-    }
+//    public List<Proveedor> cargarProveedor(List<Proveedor> listaProveedor, String nom){
+//        try {
+//            listaProveedor = (List<Proveedor>) st.createQuery("From Proveedor where nombre  = '" + nom + "'order by nombre").list();
+//        } catch (Exception e) {
+//            System.out.println("Error al cargar cliente");
+//        }
+//        return listaProveedor;
+//    }
 
-    public Proveedor TraerProveedorId(String nombre) {
-        Proveedor pro = null;
-        try {
-            pro = (Proveedor) st.load(Proveedor.class, nombre);
-        } catch (Exception e) {
-            System.out.println("Error al traer proveedor");
-        }
-        return pro;
-    }
-    
-        public Proveedor TraerProveedor(String nombre) {
+    public Proveedor TraerProveedor(String nombre) {
         Proveedor pro = null;
         try {
             pro = (Proveedor) st.load(Proveedor.class, nombre);
@@ -81,13 +70,8 @@ public class Controlador_Proveedor {
         }
         return pro;
     }
-    
-    public List<Proveedor> buscarProveedor(String nombre, List<Proveedor> lis) {
-        try {
-            lis = (List<Proveedor>) st.createQuery("From Persona where CI LIKE '%" + nombre + "%'").list();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
-        }
-        return lis;
+
+    public List<Vistas.Proveedor> cargarProveedor(List<Vistas.Proveedor> listaProveedor, String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

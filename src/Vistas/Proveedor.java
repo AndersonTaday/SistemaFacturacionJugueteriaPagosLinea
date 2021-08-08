@@ -5,99 +5,55 @@
  */
 package Vistas;
 
-import Controlador.Controlador_Persona;
 import Controlador.Controlador_Proveedor;
-import Controlador.Controlador_Rol;
-import Modelo.Proveedor;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author James Romero
  */
-public class FrmProveedor extends javax.swing.JFrame {
+public class Proveedor extends javax.swing.JFrame {
 
     /**
      * Creates new form Proveedor
      */
-    Controlador_Proveedor proveedordb = new Controlador_Proveedor();
+    Controlador_Proveedor proveedorDB = new Controlador_Proveedor();
     DefaultTableModel TablaProveedor;
-    
 
-    public FrmProveedor() {
+    public Proveedor() {
         initComponents();
        // inicio();
-    }
-    
-    private void ModificarTabla() {
-        JTProveedor.getColumnModel().getColumn(0).setMaxWidth(0);
-        JTProveedor.getColumnModel().getColumn(0).setMinWidth(0);
-        JTProveedor.getColumnModel().getColumn(0).setPreferredWidth(0);
 
+    }
+
+    /* private void ModificarTabla() {
+        JTProveedor.getColumnModel().getColumn(0).setPreferredWidth(220);
         JTProveedor.getColumnModel().getColumn(1).setPreferredWidth(220);
         JTProveedor.getColumnModel().getColumn(2).setPreferredWidth(220);
         JTProveedor.getColumnModel().getColumn(3).setPreferredWidth(220);
         JTProveedor.getColumnModel().getColumn(4).setPreferredWidth(220);
-        JTProveedor.getColumnModel().getColumn(5).setPreferredWidth(220);
-        JTProveedor.getColumnModel().getColumn(6).setPreferredWidth(220);
-        JTProveedor.getColumnModel().getColumn(7).setPreferredWidth(220);
-
         TablaProveedor = (DefaultTableModel) JTProveedor.getModel();
         TablaProveedor.setNumRows(0);
     }
-        
-    private void cargarTabla(String estado) {
-        List<Proveedor> lista = null;
-        lista = proveedordb.cargarProveedor(estado, lista);
-        for (Proveedor proveedor : lista) {
-            TablaProveedor.addRow(new Object[]{
-                proveedor.getIdProveedor(), proveedor.getNombre(), proveedor.getTelefono(), proveedor.getDireccion(), proveedor.getDescripción(), proveedor.getEstado(), 
-            });
+
+    private void cargarTabla(String nombre) {
+        List<Proveedor> listaProveedor = null;
+        listaProveedor = proveedorDB.cargarProveedor(listaProveedor, nombre);
+        for (Proveedor proveedor : listaProveedor) {
+            TablaProveedor.addRow(new Object[]{});
+          
         }
     }
-        
+
     private void inicio() {
         ModificarTabla();
-        cargarTabla("A");
-//      cargarTabla("");
+        cargarTabla("");
     }
-    
-    private void cargarProveedor(String nombre) {
-        Proveedor pr = proveedordb.TraerProveedorId(nombre);
-        txtNombre.setText(pr.getNombre());
-        txtTelefono.setText(pr.getTelefono());
-        txtDireccion.setText(pr.getDireccion());
-        txtDescripcion.setText(pr.getDescripción());
-    }
+    *(
 
-    private void limpiar() {
-        txtNombre.setText("");
-        txtTelefono.setText("");
-        txtDireccion.setText("");
-        txtDescripcion.setText("");
-    }   
-    
-    private void buscarProveedor(String nombre) {
-        TablaProveedor.setNumRows(0);
-        List<Proveedor> lis = null;
-        lis = proveedordb.buscarProveedor(nombre, lis);
-
-        if (lis.size() > 0) {
-            for (Proveedor perLis : lis) {
-                TablaProveedor.addRow(new Object[]{
-                perLis.getIdProveedor(), perLis.getNombre(), perLis.getTelefono(), perLis.getDireccion(), perLis.getDescripción(), perLis.getEstado(), 
-                });
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            txtBuscar.requestFocus();
-            inicio();
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,7 +70,7 @@ public class FrmProveedor extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -143,7 +99,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel1.setText("Nombre: ");
 
-        txtBuscar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         txtTelefono.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
@@ -258,7 +214,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -302,7 +258,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)))
@@ -339,12 +295,6 @@ public class FrmProveedor extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if (txtBuscar.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            txtBuscar.requestFocus();
-        } else {
-            buscarProveedor(txtBuscar.getText());
-        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -355,32 +305,7 @@ public class FrmProveedor extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        Proveedor pro = null;
-        if (btnNuevo.getText().equals("Guardar")) {
-            pro = proveedordb.TraerProveedores(txtNombre.getText());
-            if (pro == null) {
-                pro = new Proveedor();
-                Proveedor r = new Proveedor();
 
-                r = proveedordb.TraerProveedores("Proveedor");
-                pro.setNombre(r);
-
-                pro.setNombre(txtNombre.getText().trim());
-                pro.setTelefono(txtTelefono.getText().trim());
-                pro.setDireccion(txtDireccion.getText().trim());
-                pro.setDescripción(txtDescripcion.getText().trim());
-                pro.setEstado("A");
-
-                r.getProveedores().add(pro);
-                proveedordb.NuevoProveedor(pro);
-                JOptionPane.showMessageDialog(null, "Proveedor Guardado Exitosamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        inicio();
-        limpiar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
@@ -414,7 +339,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmProveedor().setVisible(true);
+                new Proveedor().setVisible(true);
             }
         });
     }
@@ -433,7 +358,7 @@ public class FrmProveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
