@@ -29,7 +29,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void FrmFactura() {
-        Factura frm = new Factura();
+        FrmFactura frm = new FrmFactura();
         frm.setVisible(true);
     }
 
