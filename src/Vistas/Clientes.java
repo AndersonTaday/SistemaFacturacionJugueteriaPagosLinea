@@ -56,14 +56,16 @@ public class Clientes extends javax.swing.JFrame {
         for (Persona persona : lista) {
             TablaCliente.addRow(new Object[]{
                 persona.getIdPersona(), persona.getCI(), persona.getNombre(), persona.getApellido(), persona.getTelefono(), persona.getCorreoElectronico(), persona.getDireccion(), persona.getEstado()
-
+                    
             });
         }
+        
     }
 
     private void inicio() {
         ModificarTabla();
         cargarTabla("A");
+        
         //CAMBIARLA VARIABLE ESTADO A STRING
         //        cargarTabla("");
     }
@@ -470,19 +472,37 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-//        Persona p = new Persona();
-//        p = personadb.TraerClientes(txtCedula.getText());
-//        p.setCI(txtCedula.getText().trim());
-//        p.setNombre(txtNombre.getText().trim());
-//        p.setApellido(txtApellido.getText().trim());
-//        p.setCorreoElectronico(txtCorreElectronico.getText().trim());
-//        p.setDireccion(txtDireccion.getText().trim());
-//        p.setTelefono(txtTelefono.getText().trim());
-//        p.setEstado("A");
-//        personadb.ActualizarCliente(p);
-//        JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-//        inicio();
-//        limpiar();
+        Persona per = null;
+        if (btnModificar.getText().equals("Modificar")) {
+            per = personadb.TraerClientes(txtCedula.getText());
+            if (per == null) {
+                per = new Persona();
+//                Rol r = new Rol();
+//
+//                r = RolDB.TraerRoles("Cliente");
+//                per.setRol(r);
+
+                per.setCI(txtCedula.getText().trim());
+                per.setNombre(txtNombre.getText().trim());
+                per.setApellido(txtApellido.getText().trim());
+                per.setCorreoElectronico(txtCorreElectronico.getText().trim());
+                per.setDireccion(txtDireccion.getText().trim());
+                per.setTelefono(txtTelefono.getText().trim());
+                per.setEstado("A");
+
+//                r.getPersonas().add(per);
+                personadb.ActualizarCliente(per);
+                inicio();
+                limpiar();
+                JOptionPane.showMessageDialog(null, "Se actualizaaron los datos correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

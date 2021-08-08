@@ -71,14 +71,19 @@ public class Personal extends javax.swing.JFrame {
     }
 
     private void cargarTabla(String estado) {
-        List<Persona> lista = null;
-        lista = personadb.cargarClientes(estado, lista);
-        for (Persona persona : lista) {
-            TablaPersona.addRow(new Object[]{
-                persona.getIdPersona(), persona.getCI(), persona.getNombre(), persona.getApellido(), persona.getCorreoElectronico(), persona.getDireccion(), persona.getTelefono(), persona.getEstado(), persona.getRol().getTipo()
+        try {
+            List<Persona> lista = null;
+            lista = personadb.cargarClientes(estado, lista);
+            for (Persona persona : lista) {
+                TablaPersona.addRow(new Object[]{
+                    persona.getIdPersona(), persona.getCI(), persona.getNombre(), persona.getApellido(), persona.getCorreoElectronico(), persona.getDireccion(), persona.getTelefono(), persona.getEstado(), persona.getRol().getTipo()
 
-            });
+                });
+            }
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error" + " "+ e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     private void buscaPersonaCedula(String ced) {
@@ -90,7 +95,6 @@ public class Personal extends javax.swing.JFrame {
             for (Persona perLis : lis) {
                 TablaPersona.addRow(new Object[]{
                     perLis.getIdPersona(), perLis.getCI(), perLis.getNombre(), perLis.getApellido(), perLis.getTelefono(), perLis.getCorreoElectronico(), perLis.getDireccion(), perLis.getEstado(), perLis.getRol().getTipo()
-                        
 
                 });
             }
@@ -378,7 +382,7 @@ public class Personal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(234, 250, 241));
 
         cbxTipoBusqueda.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        cbxTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula", "Estado", "Apellido", "Nombre" }));
+        cbxTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula", "Nombre" }));
 
         txtBusqueda.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -517,6 +521,75 @@ public class Personal extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        Persona per = null;
+        if (btnCrear.getText().equals("Crear")) {
+            per = personadb.TraerClientes(txtCedula.getText());
+            if (per == null) {
+                per = new Persona();
+                Rol r = new Rol();
+                if (cbxRolesPersonal.getSelectedItem().equals("Cliente")) {
+                    r = RolDB.TraerRoles("Cliente");
+                    per.setRol(r);
+
+                    per.setCI(txtCedula.getText().trim());
+                    per.setNombre(txtNombre.getText().trim());
+                    per.setApellido(txtApellido.getText().trim());
+                    per.setCorreoElectronico(txtCorreoElectronico.getText().trim());
+                    per.setDireccion(txtDireccion.getText().trim());
+                    per.setTelefono(txtTelefono.getText().trim());
+                    per.setEstado("A");
+
+                    r.getPersonas().add(per);
+                    personadb.ActualizarCliente(per);
+                    JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    inicio();
+                    limpiar();
+                } else {
+                    if (cbxRolesPersonal.getSelectedItem().equals("Administrador")) {
+                        r = RolDB.TraerRoles("Administrador");
+                        per.setRol(r);
+
+                        per.setCI(txtCedula.getText().trim());
+                        per.setNombre(txtNombre.getText().trim());
+                        per.setApellido(txtApellido.getText().trim());
+                        per.setCorreoElectronico(txtCorreoElectronico.getText().trim());
+                        per.setDireccion(txtDireccion.getText().trim());
+                        per.setTelefono(txtTelefono.getText().trim());
+                        per.setEstado("A");
+
+                        r.getPersonas().add(per);
+                        personadb.ActualizarCliente(per);
+                        JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                        inicio();
+                        limpiar();
+                    } else {
+                        if (cbxRolesPersonal.getSelectedItem().equals("Empleado")) {
+                            r = RolDB.TraerRoles("Empleado");
+                            per.setRol(r);
+
+                            per.setCI(txtCedula.getText().trim());
+                            per.setNombre(txtNombre.getText().trim());
+                            per.setApellido(txtApellido.getText().trim());
+                            per.setCorreoElectronico(txtCorreoElectronico.getText().trim());
+                            per.setDireccion(txtDireccion.getText().trim());
+                            per.setTelefono(txtTelefono.getText().trim());
+                            per.setEstado("A");
+
+                            r.getPersonas().add(per);
+                            personadb.ActualizarCliente(per);
+                            JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                            inicio();
+                            limpiar();
+                        }
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
