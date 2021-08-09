@@ -29,17 +29,17 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void FrmFactura() {
-        Factura frm = new Factura();
+        FrmFactura frm = new FrmFactura();
         frm.setVisible(true);
     }
 
     public void FrmJuguete() {
-        Juguete frm = new Juguete();
+        FrmJuguete frm = new FrmJuguete();
         frm.setVisible(true);
     }
 
     public void FrmProveedor() {
-        Proveedor frm = new Proveedor();
+        FrmProveedor frm = new FrmProveedor();
         frm.setVisible(true);
     }
 

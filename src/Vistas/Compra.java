@@ -24,7 +24,7 @@ public class Compra extends javax.swing.JFrame {
     }
 
     public void FrmJuguete() {
-        Juguete frm = new Juguete();
+        FrmJuguete frm = new FrmJuguete();
         frm.setVisible(true);
     }
 
@@ -446,7 +446,7 @@ public class Compra extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        Juguete jugue = null;
+        FrmJuguete jugue = null;
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
