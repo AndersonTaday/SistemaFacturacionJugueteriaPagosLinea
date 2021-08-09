@@ -27,48 +27,8 @@ public class FrmJuguete extends javax.swing.JFrame {
 
     public FrmJuguete() {
         initComponents();
+        mostrarDatos();
     }
-
-//    private void ModificarTabla() {
-////        JTJuguete.getColumnModel().getColumn(0).setMaxWidth(0);
-////        JTJuguete.getColumnModel().getColumn(0).setMinWidth(0);
-////        JTJuguete.getColumnModel().getColumn(0).setPreferredWidth(0);
-//        try {
-//            JTJuguete.getColumnModel().getColumn(0).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(1).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(2).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(3).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(4).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(5).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(6).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(7).setPreferredWidth(220);
-//            JTJuguete.getColumnModel().getColumn(8).setPreferredWidth(220);
-//            TablaJuguete = (DefaultTableModel) JTJuguete.getModel();
-//            TablaJuguete.setNumRows(0);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Error" + " " + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
-//        }
-//
-//    }
-//
-//    private void cargarTabla(String estado) {
-//        try {
-//            List<Juguete> lista = null;
-//            lista = jugueteDB.cargarJuguete(estado, lista);
-//            for (Juguete juguete : lista) {
-//                TablaJuguete.addRow(new Object[]{
-//                    juguete.getCodigo(), juguete.getNombre(), juguete.getMarca(), juguete.getStock(),
-//                    juguete.getModelo(), juguete.getDescripcion(), juguete.getObservacion(), juguete.getPrecio(),
-//                    juguete.getEstado()
-//
-//                });
-//            }
-//
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Error" + " " + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
-//        }
-//
-//    }
     private void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Código");

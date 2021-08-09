@@ -11,7 +11,9 @@ import Controlador.Controlador_Proveedor;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +38,7 @@ public class FrmProveedor extends javax.swing.JFrame {
 
     public FrmProveedor() {
         initComponents();
+        mostrarDatos();
 
     }
 
@@ -55,32 +58,36 @@ public class FrmProveedor extends javax.swing.JFrame {
         txtTelefono.setText(" ");
         txtDescripcion.setText(" ");
     }
+    
+     private void mostrarDatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Teléfono");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Estado");
+        JTProveedor.setModel(modelo);
+        String[] datos = new String[5];
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre,telefono,direccion,descripción,estado FROM proveedor");
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+            JTProveedor.setModel(modelo);
 
-//    private void ModificarTabla() {
-//        JTProveedor.getColumnModel().getColumn(0).setMaxWidth(0);
-//        JTProveedor.getColumnModel().getColumn(0).setMinWidth(0);
-//        JTProveedor.getColumnModel().getColumn(0).setPreferredWidth(0);
-//
-//        JTProveedor.getColumnModel().getColumn(1).setPreferredWidth(220);
-//        JTProveedor.getColumnModel().getColumn(2).setPreferredWidth(220);
-//        JTProveedor.getColumnModel().getColumn(3).setPreferredWidth(220);
-//        JTProveedor.getColumnModel().getColumn(4).setPreferredWidth(220);
-//        JTProveedor.getColumnModel().getColumn(5).setPreferredWidth(220);
-//
-//        TablaProveedor = (DefaultTableModel) JTProveedor.getModel();
-//        TablaProveedor.setNumRows(0);
-//
-//    }
-//    private void cargarTabla(String nom){
-//        List<Proveedor> lista = null;
-//        lista = proveedorDB.cargarProveedor(nom, lista);
-//        for(Proveedor proveedor: Lista){
-//             TablaProveedor.addRow(new Object[]{
-//                
-//             }
-//        }
-//        
-//    }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + " " + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -144,11 +151,11 @@ public class FrmProveedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Teléfono", "Dirección", "Descripción", "Estado"
+                "Nombre", "Teléfono", "Dirección", "Descripción", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -331,6 +338,8 @@ public class FrmProveedor extends javax.swing.JFrame {
             pps.setString(4, txtNombre.getText());
             pps.setString(5, txtTelefono.getText());
             pps.executeUpdate();
+            mostrarDatos();
+            limpiar();
             JOptionPane.showMessageDialog(null, "Proveedor Guardado Exitosamente");
         } catch (SQLException ex) {
             Logger.getLogger(FrmProveedor.class.getName()).log(Level.SEVERE, null, ex);
