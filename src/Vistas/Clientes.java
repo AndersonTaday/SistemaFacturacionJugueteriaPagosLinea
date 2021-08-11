@@ -7,6 +7,7 @@ package Vistas;
 
 import Controlador.Controlador_Persona;
 import Controlador.Controlador_Rol;
+import Controlador.Controlador_Validar;
 import Modelo.Persona;
 import Modelo.Rol;
 import java.util.List;
@@ -24,12 +25,25 @@ public class Clientes extends javax.swing.JFrame {
      */
     Controlador_Rol RolDB = new Controlador_Rol();
     Controlador_Persona personadb = new Controlador_Persona();
+    Controlador_Validar val = new Controlador_Validar();
     DefaultTableModel TablaCliente;
 
     public Clientes() {
         initComponents();
         inicio();
 
+    }
+
+    private boolean ValidarCampos() {
+        boolean lleno = true;
+        if (txtNombre.getText().equals("") || txtApellido.getText().equals("") || txtCedula.getText().equals("")
+                || txtTelefono.getText().equals("") || txtDireccion.getText().equals("") || txtCorreElectronico.getText().equals("")) {
+            lleno = false;
+        } else {
+            lleno = true;
+
+        }
+        return lleno;
     }
 
     private void ModificarTabla() {
@@ -56,16 +70,16 @@ public class Clientes extends javax.swing.JFrame {
         for (Persona persona : lista) {
             TablaCliente.addRow(new Object[]{
                 persona.getIdPersona(), persona.getCI(), persona.getNombre(), persona.getApellido(), persona.getTelefono(), persona.getCorreoElectronico(), persona.getDireccion(), persona.getEstado()
-                    
+
             });
         }
-        
+
     }
 
     private void inicio() {
         ModificarTabla();
         cargarTabla("A");
-        
+
         //CAMBIARLA VARIABLE ESTADO A STRING
         //        cargarTabla("");
     }
@@ -140,7 +154,7 @@ public class Clientes extends javax.swing.JFrame {
         txtDireccion = new java.awt.TextField();
         jLabel5 = new javax.swing.JLabel();
         txtCorreElectronico = new java.awt.TextField();
-        jButton1 = new javax.swing.JButton();
+        btnActivar_Desactivar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
@@ -156,9 +170,12 @@ public class Clientes extends javax.swing.JFrame {
         jLabel6.setText("Cedula:");
 
         txtBuscarCedula.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtBuscarCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarCedulaActionPerformed(evt);
+        txtBuscarCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarCedulaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarCedulaKeyTyped(evt);
             }
         });
 
@@ -166,30 +183,30 @@ public class Clientes extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dotos de cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 12))); // NOI18N
 
         txtNombre.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
             }
         });
 
         txtApellido.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
             }
         });
 
         txtCedula.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
             }
         });
 
         txtTelefono.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
             }
         });
 
@@ -227,21 +244,11 @@ public class Clientes extends javax.swing.JFrame {
         jLabel7.setText("Dirección:");
 
         txtDireccion.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel5.setText("Correo Electronico:");
 
         txtCorreElectronico.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        txtCorreElectronico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreElectronicoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -315,11 +322,11 @@ public class Clientes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jButton1.setText("Activar/Desactivar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnActivar_Desactivar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnActivar_Desactivar.setText("Activar/Desactivar");
+        btnActivar_Desactivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActivar_DesactivarActionPerformed(evt);
             }
         });
 
@@ -386,7 +393,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActivar_Desactivar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,7 +423,7 @@ public class Clientes extends javax.swing.JFrame {
                             .addComponent(txtBuscarCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnActivar_Desactivar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar)))
                 .addGap(40, 40, 40)
@@ -442,33 +449,10 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void btnActivar_DesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivar_DesactivarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
-    private void txtCorreElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreElectronicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreElectronicoActionPerformed
-
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
-
-    private void txtBuscarCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarCedulaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnActivar_DesactivarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
@@ -477,25 +461,21 @@ public class Clientes extends javax.swing.JFrame {
             per = personadb.TraerClientes(txtCedula.getText());
             if (per == null) {
                 per = new Persona();
-//                Rol r = new Rol();
-//
-//                r = RolDB.TraerRoles("Cliente");
-//                per.setRol(r);
-
-                per.setCI(txtCedula.getText().trim());
-                per.setNombre(txtNombre.getText().trim());
-                per.setApellido(txtApellido.getText().trim());
-                per.setCorreoElectronico(txtCorreElectronico.getText().trim());
-                per.setDireccion(txtDireccion.getText().trim());
-                per.setTelefono(txtTelefono.getText().trim());
-                per.setEstado("A");
-
-//                r.getPersonas().add(per);
-                personadb.ActualizarCliente(per);
-                inicio();
-                limpiar();
-                JOptionPane.showMessageDialog(null, "Se actualizaaron los datos correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
+                if (ValidarCampos() == true) {
+                    per.setCI(txtCedula.getText().trim());
+                    per.setNombre(txtNombre.getText().trim());
+                    per.setApellido(txtApellido.getText().trim());
+                    per.setCorreoElectronico(txtCorreElectronico.getText().trim());
+                    per.setDireccion(txtDireccion.getText().trim());
+                    per.setTelefono(txtTelefono.getText().trim());
+                    per.setEstado("A");
+                    personadb.ActualizarCliente(per);
+                    inicio();
+                    limpiar();
+                    JOptionPane.showMessageDialog(null, "Se actualizaaron los datos correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Llenar campos sin escribir", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 
@@ -507,6 +487,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
         if (txtBuscarCedula.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             txtBuscarCedula.requestFocus();
@@ -520,29 +501,28 @@ public class Clientes extends javax.swing.JFrame {
         if (btnGuardar.getText().equals("Guardar")) {
             per = personadb.TraerClientes(txtCedula.getText());
             if (per == null) {
-                per = new Persona();
-                Rol r = new Rol();
-
-                r = RolDB.TraerRoles("Cliente");
-                per.setRol(r);
-
-                per.setCI(txtCedula.getText().trim());
-                per.setNombre(txtNombre.getText().trim());
-                per.setApellido(txtApellido.getText().trim());
-                per.setCorreoElectronico(txtCorreElectronico.getText().trim());
-                per.setDireccion(txtDireccion.getText().trim());
-                per.setTelefono(txtTelefono.getText().trim());
-                per.setEstado("A");
-
-                r.getPersonas().add(per);
-                personadb.Cliente(per);
-                JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
+                if (ValidarCampos() == true) {
+                    per = new Persona();
+                    Rol r = new Rol();
+                    r = RolDB.TraerRoles("Cliente");
+                    per.setRol(r);
+                    per.setCI(txtCedula.getText().trim());
+                    per.setNombre(txtNombre.getText().trim());
+                    per.setApellido(txtApellido.getText().trim());
+                    per.setCorreoElectronico(txtCorreElectronico.getText().trim());
+                    per.setDireccion(txtDireccion.getText().trim());
+                    per.setTelefono(txtTelefono.getText().trim());
+                    per.setEstado("A");
+                    r.getPersonas().add(per);
+                    personadb.Cliente(per);
+                    JOptionPane.showMessageDialog(null, "Cliente Guardado exitoso", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Llenar campos sin escribir", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "El número de cédula ya existe en el sistema", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 
             }
-
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -553,10 +533,6 @@ public class Clientes extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActionPerformed
-
     private void JTClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTClienteMouseClicked
         int selectRow = JTCliente.getSelectedRow();
         int idCedula = Integer.parseInt(TablaCliente.getValueAt(selectRow, 0).toString());
@@ -566,9 +542,53 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         // TODO add your handling code here:
-        inicio();
-        limpiar();
+        if (ValidarCampos() == true) {
+            inicio();
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Llenar campos sin escribir", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnAñadirActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        val.ValidarLetra(evt, txtNombre, 50);
+
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        val.ValidarLetra(evt, txtApellido, 50);
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        val.ValidarNumero(evt, txtCedula, 10);
+
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtBuscarCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaKeyTyped
+        // TODO add your handling code here:
+        val.ValidarNumero(evt, txtBuscarCedula, 10);
+
+    }//GEN-LAST:event_txtBuscarCedulaKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+        val.ValidarNumero(evt, txtTelefono, 10);
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtBuscarCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaKeyPressed
+        // TODO add your handling code here:
+        val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
+        if (txtBuscarCedula.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscarCedula.requestFocus();
+        } else {
+            buscaCliente(txtBuscarCedula.getText());
+        }
+    }//GEN-LAST:event_txtBuscarCedulaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -607,12 +627,12 @@ public class Clientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTCliente;
+    private javax.swing.JButton btnActivar_Desactivar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
