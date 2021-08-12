@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JTextField;
  */
 public class Controlador_Validar {
 
-    public void ValidarNumero(KeyEvent num, JTextField txt, int tam) {
+    public void ValidarNumero(KeyEvent num, TextField txt, int tam) {
         try {
             char c = num.getKeyChar();
             if (!Character.isDigit(c)) {
@@ -32,7 +33,7 @@ public class Controlador_Validar {
         }
     }
 
-    public void ValidarLetra(KeyEvent num, JTextField txt, int tam) {
+    public void ValidarLetra(KeyEvent num, TextField txt, int tam) {
         try {
             char c = num.getKeyChar();
             if (Character.isDigit(c)) {
@@ -69,6 +70,15 @@ public class Controlador_Validar {
             JOptionPane.showMessageDialog(null, ex + "Error");
         }
     }
+    
+    public void ValidarMayusculas(String cad, KeyEvent evt) {
+        char letra = evt.getKeyChar();
+        if (Character.isLowerCase(letra)) {
+            cad = ("" + letra).toUpperCase();
+            letra = cad.charAt(0);
+            evt.setKeyChar(letra);
+        }
+    }
 
     public String ObtenerCodString(int c) {
         String cdd = "000001";
@@ -88,7 +98,7 @@ public class Controlador_Validar {
         return cdd;
     }
 
-    public boolean validadorDeCedula(String cedula, JTextField txt) {
+    public boolean ValidarCedula(String cedula, TextField txt) {
         boolean cedulaCorrecta = false;
         try {
             if (cedula.length() == 10) {

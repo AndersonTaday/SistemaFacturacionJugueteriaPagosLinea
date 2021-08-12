@@ -3,6 +3,7 @@ package Controlador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,5 +33,4 @@ public class Conexion {
     Statement createStatement() {
         throw new UnsupportedOperationException("No Soportado");
     }
-
 }
