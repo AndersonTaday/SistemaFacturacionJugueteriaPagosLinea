@@ -487,7 +487,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
+       // val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
         if (txtBuscarCedula.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             txtBuscarCedula.requestFocus();
@@ -581,13 +581,13 @@ public class Clientes extends javax.swing.JFrame {
 
     private void txtBuscarCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaKeyPressed
         // TODO add your handling code here:
-        val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
-        if (txtBuscarCedula.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            txtBuscarCedula.requestFocus();
-        } else {
-            buscaCliente(txtBuscarCedula.getText());
-        }
+//        val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
+//        if (txtBuscarCedula.getText().equals("")) {
+//            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+//            txtBuscarCedula.requestFocus();
+//        } else {
+//            buscaCliente(txtBuscarCedula.getText());
+//        }
     }//GEN-LAST:event_txtBuscarCedulaKeyPressed
 
     /**
