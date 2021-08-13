@@ -54,12 +54,12 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void FrmPersonal() {
-        Personal frm = new Personal();
+        FrmPersonal frm = new FrmPersonal();
         frm.setVisible(true);
     }
 
     public void FrmClientes() {
-        Clientes frm = new Clientes();
+        FrmClientes frm = new FrmClientes();
         frm.setVisible(true);
     }
 
