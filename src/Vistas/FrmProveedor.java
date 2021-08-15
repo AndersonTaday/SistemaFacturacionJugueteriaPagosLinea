@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Vistas;
 
 import Controlador.Conexion;
@@ -15,15 +20,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author James Romero
  */
-
 public class FrmProveedor extends javax.swing.JFrame {
 
+    /**
+     * Creates new form Proveedor
+     */
     Controlador_Proveedor proveedorDB = new Controlador_Proveedor();
     Controlador_Validar val = new Controlador_Validar();
     DefaultTableModel TablaProveedor;
@@ -71,10 +80,21 @@ public class FrmProveedor extends javax.swing.JFrame {
         modelo.addColumn("Descripción");
         modelo.addColumn("Estado");
         JTProveedor.setModel(modelo);
+        String sql = "";
+        if (valor.equals("")) {
+            sql = ("SELECT nombre,telefono,direccion,descripción,estado FROM proveedor");
+        } else {
+            String variable = (String) cbxTipoBusqueda.getSelectedItem();
+            if (variable.equals("Teléfono")) {
+                sql = ("SELECT nombre,telefono,direccion,descripción,estado FROM proveedor WHERE telefono='" + valor + "'");
+            } else {
+                sql = ("SELECT nombre,telefono,direccion,descripción,estado FROM proveedor WHERE nombre='" + valor + "'");
+            }
+        }
         String[] datos = new String[5];
         try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre,telefono,direccion,descripción,estado FROM proveedor");
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
@@ -88,6 +108,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + " " + e.getMessage(), "mensaje", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -99,19 +120,19 @@ public class FrmProveedor extends javax.swing.JFrame {
         txtBusqueda = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxTipoBusqueda = new javax.swing.JComboBox<>();
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTProveedor = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        btnEstado = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         txtTelefono = new java.awt.TextField();
-        txtDireccion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Proveedores");
@@ -133,13 +154,15 @@ public class FrmProveedor extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel3.setText("Dirección:");
 
+        txtDireccion.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+
         txtDescripcion.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel4.setText("Descripción:");
 
-        jComboBox1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Teléfono" }));
+        cbxTipoBusqueda.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        cbxTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Teléfono" }));
 
         txtNombre.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
@@ -167,12 +190,12 @@ public class FrmProveedor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JTProveedor);
 
-        jButton6.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ActivarDesactivar.png"))); // NOI18N
-        jButton6.setText("Activar/Desactivar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnEstado.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ActivarDesactivar.png"))); // NOI18N
+        btnEstado.setText("Activar/Desactivar");
+        btnEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnEstadoActionPerformed(evt);
             }
         });
 
@@ -219,12 +242,6 @@ public class FrmProveedor extends javax.swing.JFrame {
             }
         });
 
-        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccionActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -236,17 +253,15 @@ public class FrmProveedor extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDireccion)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDireccion))))
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
@@ -266,9 +281,9 @@ public class FrmProveedor extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxTipoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton6)
+                                .addComponent(btnEstado)
                                 .addGap(47, 47, 47)
                                 .addComponent(btnModificar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -290,22 +305,22 @@ public class FrmProveedor extends javax.swing.JFrame {
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
+                    .addComponent(btnEstado)
                     .addComponent(btnModificar)
                     .addComponent(btnNuevo))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxTipoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -329,34 +344,15 @@ public class FrmProveedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        try {
-            int fila = JTProveedor.getSelectedRow();
-            String valor = JTProveedor.getValueAt(fila,4).toString();
-            if(valor.equals("A")){
-                PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET estado='D' WHERE nombre='"+txtNombre.getText()+"'");
-                pst.executeUpdate();
-                mostrarDatos("");
-                JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET estado='A' WHERE nombre='"+txtNombre.getText()+"'");
-                pst.executeUpdate();
-                mostrarDatos("");
-                JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
         if (ValidarCampos() == true) {
-            try{
-               PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET descripción='"+txtDescripcion.getText()+"',direccion='"+txtDireccion.getText()+"',estado='A',telefono='"+txtTelefono.getText()+"' WHERE nombre='"+txtNombre.getText()+"'");
+            try {
+                PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET descripción='" + txtDescripcion.getText() + "',direccion='" + txtDireccion.getText() + "',estado='A',telefono='" + txtTelefono.getText() + "' WHERE nombre='" + txtNombre.getText() + "'");
                 pst.executeUpdate();
                 mostrarDatos("");
                 JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         } else {
@@ -365,10 +361,11 @@ public class FrmProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
         if (txtBusqueda.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             txtBusqueda.requestFocus();
+        } else {
+            mostrarDatos(txtBusqueda.getText());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -406,21 +403,39 @@ public class FrmProveedor extends javax.swing.JFrame {
         val.ValidarNumero(evt, txtTelefono, 10);
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
-    private void JTProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTProveedorMouseClicked
-        int fila = JTProveedor.getSelectedRow();
-        if (fila >=0 ){
-            txtNombre.setText(JTProveedor.getValueAt(fila,0).toString());
-            txtTelefono.setText(JTProveedor.getValueAt(fila,1).toString());
-            txtDireccion.setText(JTProveedor.getValueAt(fila,2).toString());
-            txtDescripcion.setText(JTProveedor.getValueAt(fila,3).toString());
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un juguete");
-        } 
-    }//GEN-LAST:event_JTProveedorMouseClicked
-
-    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+    private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccionActionPerformed
+        try {
+            int fila = JTProveedor.getSelectedRow();
+            String valor = JTProveedor.getValueAt(fila, 4).toString();
+            if (valor.equals("A")) {
+                PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET estado='D' WHERE nombre='" + txtNombre.getText() + "'");
+                pst.executeUpdate();
+                mostrarDatos("");
+                JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                PreparedStatement pst = cn.prepareStatement("UPDATE proveedor SET estado='A' WHERE nombre='" + txtNombre.getText() + "'");
+                pst.executeUpdate();
+                mostrarDatos("");
+                JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEstadoActionPerformed
+
+    private void JTProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTProveedorMouseClicked
+        // TODO add your handling code here:
+        int fila = JTProveedor.getSelectedRow();
+        if (fila >= 0) {
+            txtNombre.setText(JTProveedor.getValueAt(fila, 0).toString());
+            txtTelefono.setText(JTProveedor.getValueAt(fila, 1).toString());
+            txtDireccion.setText(JTProveedor.getValueAt(fila, 2).toString());
+            txtDescripcion.setText(JTProveedor.getValueAt(fila, 3).toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un proveedor");
+        }
+    }//GEN-LAST:event_JTProveedorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -455,6 +470,17 @@ public class FrmProveedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(FrmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FrmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FrmProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new FrmProveedor().setVisible(true);
             }
         });
@@ -464,10 +490,10 @@ public class FrmProveedor extends javax.swing.JFrame {
     private javax.swing.JTable JTProveedor;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEstado;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxTipoBusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

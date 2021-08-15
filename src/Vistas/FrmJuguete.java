@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author yamilka
  */
+  
 public class FrmJuguete extends javax.swing.JFrame {
 
     Conexion con = new Conexion();
@@ -44,10 +47,24 @@ public class FrmJuguete extends javax.swing.JFrame {
         modelo.addColumn("Estado");
         JTJuguete.setModel(modelo);
         String sql = "";
+        if(valor.equals("")){
+            sql = "SELECT * FROM juguete";
+        } else{
+            String variable = (String) cbxTipoBusqueda.getSelectedItem();
+            if(variable.equals("Código")){
+            sql = "SELECT * FROM juguete WHERE codigo='"+valor+"'";
+            } else {
+                if (variable.equals("Nombre")){
+                    sql = "SELECT * FROM juguete WHERE nombre='"+valor+"'";
+                } else {
+                    sql = "SELECT * FROM juguete WHERE marca='"+valor+"'";
+                }
+            }
+        }
         String[] datos = new String[9];
         try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM juguete");
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 datos[0] = rs.getString(2);
                 datos[1] = rs.getString(7);
@@ -232,12 +249,9 @@ public class FrmJuguete extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -252,8 +266,11 @@ public class FrmJuguete extends javax.swing.JFrame {
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(75, 75, 75)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,12 +324,12 @@ public class FrmJuguete extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAñadir)
                             .addComponent(btnGuardar)))
                     .addComponent(jLabel3))
-                .addGap(25, 25, 25))
+                .addGap(37, 37, 37))
         );
 
         cbxTipoBusqueda.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -517,7 +534,8 @@ public class FrmJuguete extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txtBusqueda.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            txtBusqueda.requestFocus();
+        } else {
+            mostrarDatos(txtBusqueda.getText());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -604,6 +622,17 @@ public class FrmJuguete extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FrmJuguete.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new FrmJuguete().setVisible(true);
             }
         });

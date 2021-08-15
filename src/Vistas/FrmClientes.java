@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -88,7 +90,6 @@ public class FrmClientes extends javax.swing.JFrame {
     
         private void mostrarDatos(String valor) {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
         modelo.addColumn("Cédula");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
@@ -97,19 +98,24 @@ public class FrmClientes extends javax.swing.JFrame {
         modelo.addColumn("Dirección");
         modelo.addColumn("Estado");
         JTCliente.setModel(modelo);
-        String[] datos = new String[8];
+        String sql = "";
+        if(valor.equals("")){
+            sql = "SELECT * FROM persona";
+        } else{
+            sql = "SELECT * FROM persona WHERE CI='"+valor+"'";
+        }
+        String[] datos = new String[7];
         try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM persona");
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(7);
-                datos[3] = rs.getString(3);
-                datos[4] = rs.getString(8);
-                datos[5] = rs.getString(4);
-                datos[6] = rs.getString(5);
-                datos[7] = rs.getString(6);
+                datos[0] = rs.getString(2);
+                datos[1] = rs.getString(7);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(8);
+                datos[4] = rs.getString(4);
+                datos[5] = rs.getString(5);
+                datos[6] = rs.getString(6);
                 modelo.addRow(datos);
             }
             JTCliente.setModel(modelo);
@@ -321,12 +327,9 @@ public class FrmClientes extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -409,11 +412,11 @@ public class FrmClientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Estado"
+                "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Estado", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -531,13 +534,10 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-       // val.ValidarCedula(txtBuscarCedula.getText(), txtBuscarCedula);
         if (txtBuscarCedula.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            txtBuscarCedula.requestFocus();
         } else {
-            buscaCliente(txtBuscarCedula.getText());
+            mostrarDatos(txtBuscarCedula.getText());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -673,6 +673,17 @@ public class FrmClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrmClientes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(FrmClientes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FrmClientes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FrmClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new FrmClientes().setVisible(true);
             }
         });
