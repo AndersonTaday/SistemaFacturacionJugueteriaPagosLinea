@@ -8,6 +8,7 @@ package Controlador;
 import utilidades.HibernateUtil;
 import Modelo.Cuenta;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -70,6 +71,15 @@ public class Controlador_Cuenta {
             System.out.println("Error al cargar rol");
         }
         return listaCuenta;
+    }
+     public Cuenta TraeUsuarioId(int id) {
+        Cuenta per = null;
+        try {
+            per = (Cuenta) st.load(Cuenta.class, id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar cuenta " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+        return per;
     }
     
 

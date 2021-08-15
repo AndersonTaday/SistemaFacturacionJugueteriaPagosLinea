@@ -78,4 +78,13 @@ public class Controlador_Juguete {
         }
         return jugue;
     }
+
+    public List<Juguete> buscarJuguete(String cod, List<Juguete> lis) {
+        try {
+            lis = (List<Juguete>) st.createQuery("From Juguete where codigo LIKE '%" + cod + "%'").list();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar cliente " + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
+        return lis;
+    }
 }
