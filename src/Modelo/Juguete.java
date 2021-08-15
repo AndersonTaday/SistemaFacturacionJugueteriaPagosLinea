@@ -29,7 +29,7 @@ public class Juguete implements Serializable {
     private String modelo;
     private String descripcion;
     private int stock;
-    private Double precio;
+    private String precio;
 
     private String estado;
     private String observacion;
@@ -92,13 +92,15 @@ public class Juguete implements Serializable {
         this.stock = stock;
     }
 
-    public Double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
+
+    
 
     public String getEstado() {
         return estado;
@@ -130,7 +132,7 @@ public class Juguete implements Serializable {
 
     }
 
-    public Juguete(int idJuguete, String nombre, String marca, String modelo, String descripcion, int stock, Double precio, String estado, String observacion, String codigo) {
+    public Juguete(int idJuguete, String nombre, String marca, String modelo, String descripcion, int stock, String precio, String estado, String observacion, String codigo) {
         this.idJuguete = idJuguete;
         this.nombre = nombre;
         this.marca = marca;

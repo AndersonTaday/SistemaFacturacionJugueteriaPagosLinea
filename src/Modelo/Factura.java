@@ -8,6 +8,7 @@ package Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +36,7 @@ public class Factura implements Serializable  {
     private Persona fac;
     
     private List<DetalleFactura>listaDetalleFac = new ArrayList<DetalleFactura>();
+    private static Vector datos = new Vector();
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,7 +125,6 @@ public class Factura implements Serializable  {
         this.fecha = fecha;
     }
     
-    //@OneToMany(mappedBy = "fac",cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "detalle_fac",cascade = CascadeType.ALL)
     public List<DetalleFactura> getListaDetalleFac() {
         return listaDetalleFac;
@@ -140,5 +141,20 @@ public class Factura implements Serializable  {
 
     public void setFac(Persona fac) {
         this.fac = fac;
+    }
+    
+    public static void Agregar(Object obj){
+        datos.addElement(obj);
+    }
+    
+    public static void Eliminar(int pos){
+        datos.removeElementAt(pos);
+    }
+    public static void Drop(){
+        datos.clear();
+    }
+    
+    public static Vector Mostrar(){
+        return datos;
     }
 }
