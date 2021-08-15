@@ -55,48 +55,38 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnPersonal" min="-2" pref="176" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="btnJuguete" min="-2" pref="176" max="-2" attributes="0"/>
-                                      <Component id="btnProveedor" min="-2" pref="176" max="-2" attributes="0"/>
-                                      <Component id="btnFactura" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="125" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnCliente" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
-                                      <Component id="btnCredenciales" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnReporteCompra" min="-2" pref="176" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnReporteVenta" min="-2" pref="176" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="btnJuguete" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="btnProveedor" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="btnFactura" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnCliente" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="btnCredenciales" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="btnPersonal" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnReporteCompra" min="-2" pref="176" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnReporteVenta" min="-2" pref="176" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnCompra" min="-2" pref="176" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnUsuario" min="-2" pref="176" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnCerrarSesion" min="-2" pref="134" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnCompra" min="-2" pref="176" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="0" pref="386" max="32767" attributes="0"/>
+                  <Component id="btnCerrarSesion" min="-2" pref="134" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -106,28 +96,31 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCerrarSesion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnPersonal" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnFactura" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnFactura" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPersonal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnJuguete" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCredenciales" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnReporteCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnReporteVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
-                  <Component id="btnCompra" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnCompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -147,18 +140,18 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJugueteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPersonal">
+        <Component class="javax.swing.JButton" name="btnUsuario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Courier New" size="12" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Iconos/personal.png"/>
+              <Image iconType="3" name="/Iconos/a&#xf1;adir.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Personal"/>
+            <Property name="text" type="java.lang.String" value="Usuarios"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPersonalActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCliente">
@@ -269,6 +262,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompraActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPersonal">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Courier New" size="12" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Iconos/personal.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Personal"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPersonalActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

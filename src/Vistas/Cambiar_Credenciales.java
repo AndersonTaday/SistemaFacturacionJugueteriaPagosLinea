@@ -5,6 +5,18 @@
  */
 package Vistas;
 
+import Controlador.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author James Romero
@@ -14,8 +26,12 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
     /**
      * Creates new form Cambiar_Credenciales
      */
+    Conexion con = new Conexion();
+    Connection cn = con.conexion();
+
     public Cambiar_Credenciales() {
         initComponents();
+
     }
 
     /**
@@ -28,6 +44,25 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         frm.setVisible(true);
     }
 
+    private void limpiar() {
+        txtClave.setText("");
+        txtClaveNueva.setText("");
+        txtConfirmarClave.setText("");
+    }
+
+    public Cambiar_Credenciales(int idCuenta) {
+        initComponents();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT usuario FROM cuenta WHERE idCuenta=" + idCuenta);
+            rs.next();
+            txtUsuario.setText(rs.getString(1));
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,15 +70,15 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtClaveNueva = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
+        txtConfirmarClave = new javax.swing.JTextField();
+        btnConfirmar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,22 +92,13 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel3.setText("Usuario:");
 
-        jTextField7.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
+        txtUsuario.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        txtUsuario.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel4.setText("Contraseña:");
 
-        jTextField8.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
+        txtClave.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -84,11 +110,11 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
         );
         jPanel3Layout.setVerticalGroup(
@@ -97,11 +123,11 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -111,22 +137,12 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel1.setText("Contraseña nueva:");
 
-        jTextField6.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
+        txtClaveNueva.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         jLabel2.setText("Confirmar contraseña:");
 
-        jTextField5.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
+        txtConfirmarClave.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -138,11 +154,11 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,17 +167,22 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClaveNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        jButton9.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/confirmar.png"))); // NOI18N
-        jButton9.setText("Confirmar");
+        btnConfirmar.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/confirmar.png"))); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         btnAtras.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/atras.png"))); // NOI18N
@@ -180,7 +201,7 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton9)
+                        .addComponent(btnConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,7 +218,7 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -218,27 +239,42 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
-
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
-
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here
         FrmMenu();
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        if (txtClave.getText().length() > 0) {
+            try {
+                int clave = 0;
+                String rsC = ("UPDATE proyecto.cuenta SET clave=? WHERE usuario='" + txtUsuario.getText() + "' AND clave='" + txtClave.getText() + "'");
+                PreparedStatement nuevaClave = (PreparedStatement) cn.prepareStatement(rsC);
+                if (txtConfirmarClave.getText().length() > 0 && txtClaveNueva.getText().length() > 0) {
+                    if (txtClaveNueva.getText().equals(txtConfirmarClave.getText())) {
+                        nuevaClave.setString(1, txtClaveNueva.getText());
+                        clave = nuevaClave.executeUpdate();
+                        if (clave == 0) {
+                            JOptionPane.showMessageDialog(null, "Erroar al cambiar credenciales por favor revise su contraeña actual", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Se actualizaron las credenciales correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                            limpiar();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Llene casillas con la nueva contraseña", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ingrese su contraseña actual", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +307,17 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Cambiar_Credenciales.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(Cambiar_Credenciales.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(Cambiar_Credenciales.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Cambiar_Credenciales.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new Cambiar_Credenciales().setVisible(true);
             }
         });
@@ -278,7 +325,7 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -286,9 +333,9 @@ public class Cambiar_Credenciales extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtClaveNueva;
+    private javax.swing.JTextField txtConfirmarClave;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
