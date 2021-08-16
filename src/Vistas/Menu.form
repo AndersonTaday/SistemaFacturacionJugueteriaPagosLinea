@@ -135,6 +135,7 @@
               <Image iconType="3" name="/Iconos/juguetes.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Juguetes"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJugueteActionPerformed"/>
@@ -149,6 +150,7 @@
               <Image iconType="3" name="/Iconos/a&#xf1;adir.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Usuarios"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioActionPerformed"/>
@@ -163,6 +165,7 @@
               <Image iconType="3" name="/Iconos/clientes.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Clientes"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteActionPerformed"/>
@@ -191,6 +194,7 @@
               <Image iconType="3" name="/Iconos/proveedor.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Proveedor"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProveedorActionPerformed"/>
@@ -206,6 +210,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Reporte Compra"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteCompraActionPerformed"/>
@@ -220,6 +225,7 @@
               <Image iconType="3" name="/Iconos/reporte.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Reporte Venta"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteVentaActionPerformed"/>
@@ -259,6 +265,7 @@
               <Image iconType="3" name="/Iconos/compras.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Compra"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompraActionPerformed"/>
@@ -273,6 +280,7 @@
               <Image iconType="3" name="/Iconos/personal.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Personal"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPersonalActionPerformed"/>
